@@ -23,6 +23,8 @@ Native prompt nodes and generated images are visible on the same Vizcom board th
 
 ## Download and install
 
+**Companion Skill:** [vizcom-workbench](skills/vizcom-workbench/SKILL.md) teaches agents reference handling, layout checks and failure recovery. Copy the whole `skills/vizcom-workbench` folder into your host's supported Skill location; load it separately from the MCP below. See [installation and maintenance checks](docs/SKILL-MAINTENANCE.md). Use current source: the historical v0.1.0 tag does not include this Skill.
+
 Download a tagged source ZIP from this repository or clone it. Requires Node.js 24 and pnpm.
 
 ```sh

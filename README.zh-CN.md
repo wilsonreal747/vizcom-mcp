@@ -23,6 +23,8 @@
 
 ## 安装
 
+**配套 Skill：**[vizcom-workbench](skills/vizcom-workbench/SKILL.md) 负责教 Agent 处理参考顺序、布局核验和失败恢复。将整个 `skills/vizcom-workbench` 文件夹放入所用 Agent 支持的 Skill 目录并加载；MCP 仍需按下文单独安装。详见[安装与维护检查](docs/SKILL-MAINTENANCE.md)。历史 v0.1.0 标签不含此 Skill，请使用包含该目录的最新源码并记录提交版本。
+
 需要 Node.js 24 和 pnpm。当前只提供源码，不存在可直接 npx 安装的已发布 npm 包。
 
 ```sh
