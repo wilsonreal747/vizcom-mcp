@@ -1,0 +1,20 @@
+{
+  "hashes": {
+    "currentUser": "d7fcea3470d9307ecd3be2e376d683d07096d6383ed63228898f243ab774273d",
+    "CreateWorkbench": "f6a4d740f07ba2d0f2e12c1319b76b27be9fafd4c210ef4e15bc1c0462090fa7",
+    "CreateDrawings": "ee373baf3c8bd849230f2a3110afaed5b3d06afee6a6b39adb4a7606c5c59af0",
+    "CreatePrompt": "0cc4dab3daf35f26e7e5b465d1e331571d88080188344b9c2ebcc0ae69d525d8",
+    "prompts": "59df9874a834ae411f4ed660ae5c7a4a233a5898c72750ecf31dd9f3020dca94",
+    "recentlyViewedWorkbenches": "0c2fe2c45d7c7371d0fb758056a3dc4add9c4c2a93ff3983abb160ecda03d321",
+    "workbenchContent": "c2d88705e4b7dea964637876ef4913314146788956dbc773ede64e974ea055dc",
+    "UpdateDrawing": "06ecd656ade57bd5452eb38a6d4118df32e6e7106fc464610e36b2f8d5a69b66",
+    "CreateEditPrompt": "c65c7ade69523f777473657a42f11e3fbfb152d401a2d9a9531d6a493f56dafb",
+    "CreateWorkbenchElements": "ef244d686fc8ec14ed629172c8f24cf93f6ef2707ec44cee573c036715640996",
+    "UpdateMultiWorkbenchElements": "efc55d8b0d496abc5560e3f1488683b63dbe06ef753563172796a39c521b690c",
+    "TriggerMagicPromptCustomPrompt": "883d433a205d6a670bbe01d50e9ea5668456794c76cd07993f74dcab49baedab",
+    "drawingById": "03d8a17d54d2fdd9daa8b98186926c73024a39787deb972b761ff8cab6fac5c0",
+    "UpdateMagicPromptWithCustomPromptData": "c900a88cc5e17b84ab5edb6ce1adcf03243c6bd1a66f2baa68f2b7c4905669a0",
+    "UpdateWorkbenchElementSection": "7b9f2a7a94da7a6b0ba2b34e8f339b72c67b877291ccacccbeef721efc87c417",
+    "DeleteWorkbenchElements": "a08325b7ee4b15dfd316cb3cdbfde807c3c11b9be5e6f2a24c6e7dda8489e63b"
+  }
+}

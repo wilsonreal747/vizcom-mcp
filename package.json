@@ -1,0 +1,1 @@
+{"name":"wilson-vizcom-mcp","version":"0.1.0","private":true,"type":"module","scripts":{"test":"node --test","start":"node src/server.mjs"},"dependencies":{"@modelcontextprotocol/sdk":"^1.0.0","acorn":"^8.0.0","graphql":"^16.0.0","sharp":"^0.35.5","snappyjs":"^0.7.0","zod":"^3.0.0"}}

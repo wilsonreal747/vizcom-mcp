@@ -1,0 +1,648 @@
+mutation CreateWorkbenchElements($createDrawingsInput: [CreateDrawingInput!]!, $createDrawingsMake3dSourceTarget: CreateDrawingsMake3dSourceTargetInput, $createWorkbenchElementsPlaceholderInput: [WorkbenchElementPlaceholderInput!]!, $createWorkbenchElementsImg2ImgInput: [WorkbenchElementImg2ImgInput!]!, $createWorkbenchElementsTextInput: [WorkbenchElementTextInput!]!, $createWorkbenchElementsMixInput: [WorkbenchElementMixInput!]!, $createWorkbenchElementsSectionInput: [WorkbenchElementSectionInput!]!, $createWorkbenchElementsTryOnInput: [CreateWorkbenchElementTryOnInput!]!, $createWorkbenchElementsMake3dInput: [CreateWorkbenchElementMake3dInput!]! = [], $createWorkbenchElementsPaletteInput: [WorkbenchElementPaletteInput!]!, $createVideosInput: [VideoInput!]!, $createAnimatesInput: [WorkbenchElementAnimateInput!]!, $createMagicPromptsInput: [WorkbenchElementMagicPromptInput!]!, $createWorkbenchElementsStickyNoteInput: [WorkbenchElementStickyNoteInput!]!, $createWorkbenchElementsColorSwatchInput: [WorkbenchElementColorSwatchInput!]!, $createWorkbenchScene3DElementsInput: [WorkbenchElementScene3DCreateInput!]! = [], $duplicateRegionDrawingsInput: [DuplicateRegionDrawingInput!]! = [], $restoreRegionDrawingUndoTokens: [String!]! = []) {
+  materializeRegionDrawings(
+    input: {duplicates: $duplicateRegionDrawingsInput, undoTokens: $restoreRegionDrawingUndoTokens}
+  ) {
+    drawings {
+      ...DrawingData
+    }
+    canvasDrawings: drawings {
+      ...WorkbenchElementDrawingData
+    }
+  }
+  createDrawings(
+    input: $createDrawingsInput
+    make3dSourceTarget: $createDrawingsMake3dSourceTarget
+  ) {
+    drawings {
+      ...DrawingData
+    }
+    canvasDrawings: drawings {
+      ...WorkbenchElementDrawingData
+    }
+  }
+  createWorkbenchElementsPlaceholder(
+    input: $createWorkbenchElementsPlaceholderInput
+  ) {
+    placeholders {
+      ...WorkbenchElementPlaceholderData
+    }
+  }
+  createWorkbenchElementsImg2Img(input: $createWorkbenchElementsImg2ImgInput) {
+    img2Imgs {
+      ...WorkbenchElementImg2ImgData
+    }
+  }
+  createWorkbenchElementsText(input: $createWorkbenchElementsTextInput) {
+    texts {
+      ...WorkbenchElementTextData
+    }
+  }
+  createWorkbenchElementsMix(input: $createWorkbenchElementsMixInput) {
+    mixs {
+      ...WorkbenchElementMixData
+    }
+  }
+  createWorkbenchElementsSection(input: $createWorkbenchElementsSectionInput) {
+    sections {
+      ...WorkbenchElementSectionData
+    }
+  }
+  createWorkbenchElementsTryOn(input: $createWorkbenchElementsTryOnInput) {
+    tryOns {
+      ...WorkbenchElementTryOnData
+    }
+  }
+  createWorkbenchElementsMake3d(input: $createWorkbenchElementsMake3dInput) {
+    make3ds {
+      ...WorkbenchElementMake3dData
+    }
+  }
+  createWorkbenchElementsPalette(input: $createWorkbenchElementsPaletteInput) {
+    palettes {
+      ...WorkbenchElementPaletteWithSourceImagesData
+    }
+  }
+  createVideos(input: $createVideosInput) {
+    videos {
+      ...VideoData
+    }
+  }
+  createWorkbenchElementsAnimate(input: $createAnimatesInput) {
+    animates {
+      ...WorkbenchElementAnimateData
+    }
+  }
+  createWorkbenchScene3DElements(input: $createWorkbenchScene3DElementsInput) {
+    scene3Ds {
+      ...WorkbenchElementScene3DData
+    }
+  }
+  createWorkbenchElementsMagicPrompt(input: $createMagicPromptsInput) {
+    magicPrompts {
+      ...WorkbenchElementMagicPromptData
+    }
+  }
+  createWorkbenchElementsStickyNote(
+    input: $createWorkbenchElementsStickyNoteInput
+  ) {
+    stickyNotes {
+      ...WorkbenchElementStickyNoteData
+    }
+  }
+  createWorkbenchElementsColorSwatch(
+    input: $createWorkbenchElementsColorSwatchInput
+  ) {
+    colorSwatches {
+      ...WorkbenchElementColorSwatchData
+    }
+  }
+}
+
+fragment DrawingBasicData on Drawing {
+  id
+  height
+  layersOrder
+  createdAt
+  thumbnailPath
+  updatedAt
+  width
+  creatorId
+  workbenchId
+  isEditable
+  name
+  editorMode
+  workbench {
+    id
+    name
+    folderId
+    team {
+      id
+      organization {
+        id
+        name
+      }
+    }
+  }
+}
+
+fragment LayerData on Layer {
+  blendMode
+  fill
+  id
+  name
+  opacity
+  visible
+  updatedAt
+  createdAt
+  metadata3D
+  imagePath
+  meshPath
+  quadMeshPath
+  orderKey
+  drawingId
+  isGroup
+  parentId
+  x
+  y
+  width
+  height
+  adjustments
+}
+
+fragment PromptOutputData on PromptOutput {
+  id
+  imagePath
+  upscaledImagePath
+  failureReason
+  createdAt
+  promptId
+  sourceFidelityStage
+  targetFidelityStage
+}
+
+fragment PromptData on Prompt {
+  id
+  createdAt
+  drawingId
+  imageInferenceType
+  legacyType
+  publicPaletteId
+  customModelId
+  workbenchPaletteId
+  userPaletteId
+  text
+  sourceImageInfluence
+  paletteInfluence
+  maskImagePath
+  sourceImagePath
+  styleReferenceImagePath
+  colorCoherence
+  styleReferenceMode
+  colorReferenceHex
+  formVariationXCoord
+  formVariationYCoord
+  formVariationAxisLabels
+  colorVariationPalette
+  colorVariationShuffleColors
+  view
+  expression
+  extractMaterial
+  qualityMode
+  metadata
+  outputs {
+    nodes {
+      ...PromptOutputData
+    }
+  }
+}
+
+fragment WorkbenchElementPaletteData on WorkbenchElementPalette {
+  __typename
+  id
+  x
+  y
+  width
+  height
+  zIndex
+  status
+  name
+  tags
+  failureReason
+  thumbnailPath
+  usageCount
+  createdBy
+  estimatedTrainingEndTimestamp
+}
+
+fragment WorkbenchElementPaletteSourceImageData on WorkbenchElementPaletteSourceImage {
+  __typename
+  id
+  imagePath
+  workbenchElementPaletteId
+}
+
+fragment Scene3DData on Scene3D {
+  id
+  name
+  createdAt
+  updatedAt
+  modelPath
+  usdzPath
+  metadata3D
+  defaultViewId
+  views(orderBy: [ORDER_KEY_ASC, PRIMARY_KEY_ASC]) {
+    nodes {
+      id
+      name
+      orderKey
+      data
+      posterPath
+    }
+  }
+}
+
+fragment WorkbenchElementMagicPromptCustomPromptData on WorkbenchElementMagicPromptCustomPrompt {
+  __typename
+  id
+  workbenchElementMagicPromptId
+  promptText
+  contentHeight
+  aspectRatio
+  qualityMode
+  resolution
+}
+
+fragment WorkbenchElementMagicPromptNewViewData on WorkbenchElementMagicPromptNewView {
+  __typename
+  id
+  view
+}
+
+fragment WorkbenchElementMagicPromptNewAngleData on WorkbenchElementMagicPromptNewAngle {
+  __typename
+  id
+  selectedVerticalAngle
+  selectedHorizontalAngle
+  viewMode
+}
+
+fragment WorkbenchElementMagicPromptChangeExpressionData on WorkbenchElementMagicPromptChangeExpression {
+  __typename
+  id
+  expression
+}
+
+fragment WorkbenchElementMagicPromptExtractMaterialData on WorkbenchElementMagicPromptExtractMaterial {
+  __typename
+  id
+  material
+  normalizedCropX
+  normalizedCropY
+  normalizedCropWidth
+  normalizedCropHeight
+  cropZoom
+  activeTab
+  colorSampleBy
+  numColors
+  extractedColorPalette
+  modifiedColorPalette
+  paletteName
+  detectedObjects
+  selectedObjects
+  enablePbr
+  pbrResultsLocation
+}
+
+fragment WorkbenchElementMagicPromptFormVariationData on WorkbenchElementMagicPromptFormVariation {
+  __typename
+  id
+  xCoordinate
+  yCoordinate
+  mode
+  extractedColorPalette
+  modifiedColorPalette
+  preset
+  batchMode
+  axisLabels
+  generationQuantity
+  shuffleColors
+}
+
+fragment DrawingData on Drawing {
+  ...DrawingBasicData
+  backgroundColor
+  backgroundVisible
+  repeatMode
+  colors
+  source
+  layers {
+    nodes {
+      ...LayerData
+    }
+  }
+  prompts(orderBy: CREATED_AT_DESC, first: 1) {
+    nodes {
+      ...PromptData
+    }
+  }
+  workbench {
+    id
+    folder {
+      id
+      organization {
+        id
+        subscriptionPlan
+      }
+      rootFolder {
+        id
+      }
+    }
+  }
+  workbenchSizeRatio
+  x
+  y
+}
+
+fragment WorkbenchElementDrawingData on Drawing {
+  __typename
+  id
+  name
+  drawingHeight: height
+  drawingWidth: width
+  workbenchSizeRatio
+  x
+  y
+  zIndex
+  updatedAt
+  createdAt
+  thumbnailPath
+  contentLayersCount
+  editorMode
+  repeatMode
+  source
+  prompts(first: 1) {
+    nodes {
+      id
+    }
+  }
+  colors
+  backgroundColor
+  backgroundVisible
+}
+
+fragment WorkbenchElementPlaceholderData on WorkbenchElementPlaceholder {
+  __typename
+  id
+  height
+  width
+  x
+  y
+  zIndex
+  updatedAt
+  createdAt
+  type
+  failureReason
+  loadingImagePath
+  loadingDuration
+}
+
+fragment WorkbenchElementImg2ImgData on WorkbenchElementImg2Img {
+  __typename
+  id
+  x
+  y
+  width
+  height
+  zIndex
+  updatedAt
+  prompt
+  legacyType
+  sourceDrawingId
+  imageInferenceType
+  publicPaletteId
+  customModelId
+  workbenchPaletteId
+  userPaletteId
+  workspacePaletteId
+  sourceImageInfluences
+  paletteInfluence
+  styleReferenceImagePath
+  colorVariationPalette
+}
+
+fragment WorkbenchElementTextData on WorkbenchElementText {
+  __typename
+  id
+  contentHeight
+  height
+  lockWidth
+  width
+  x
+  y
+  angle
+  zIndex
+  updatedAt
+  content
+  style
+  link
+}
+
+fragment WorkbenchElementMixData on WorkbenchElementMix {
+  __typename
+  id
+  sourceDrawings
+  height
+  width
+  x
+  y
+  zIndex
+  updatedAt
+}
+
+fragment WorkbenchElementSectionData on WorkbenchElementSection {
+  __typename
+  id
+  height
+  width
+  x
+  y
+  zIndex
+  title
+  color
+  updatedAt
+}
+
+fragment WorkbenchElementTryOnData on WorkbenchElementTryOn {
+  __typename
+  id
+  contentSources
+  modelSource
+  pose
+  aspectRatio
+  resolution
+  height
+  width
+  x
+  y
+  zIndex
+  updatedAt
+}
+
+fragment WorkbenchElementMake3dData on WorkbenchElementMake3D {
+  __typename
+  id
+  model
+  meshDetail
+  texture
+  config
+  sourceDrawings {
+    edges {
+      createdAt
+      sortOrder
+      node {
+        id
+        thumbnailPath
+      }
+    }
+  }
+  height
+  width
+  x
+  y
+  zIndex
+  updatedAt
+}
+
+fragment WorkbenchElementPaletteWithSourceImagesData on WorkbenchElementPalette {
+  ...WorkbenchElementPaletteData
+  sourceImages {
+    nodes {
+      ...WorkbenchElementPaletteSourceImageData
+    }
+  }
+}
+
+fragment VideoData on Video {
+  id
+  x
+  y
+  width
+  height
+  zIndex
+  updatedAt
+  videoPath
+  workflow
+}
+
+fragment WorkbenchElementAnimateData on WorkbenchElementAnimate {
+  __typename
+  id
+  x
+  y
+  width
+  height
+  zIndex
+  updatedAt
+  prompt
+  sourceDrawingId
+  endDrawingId
+  animateType
+  duration
+  preset
+  presetPreview
+  generateAudio
+  workflow
+  aspectRatio
+  model
+  keyframeSlots
+  sources(orderBy: [SORT_ORDER_ASC, ID_ASC]) {
+    nodes {
+      id
+      drawingId
+      videoId
+      role
+      label
+      sortOrder
+    }
+  }
+}
+
+fragment WorkbenchElementScene3DData on WorkbenchElementScene3D {
+  __typename
+  id
+  workbenchId
+  createdAt
+  updatedAt
+  name
+  x
+  y
+  width
+  height
+  zIndex
+  resourceSnapshot
+  backgroundColorRgba
+  backgroundVisible
+  scene {
+    ...Scene3DData
+  }
+}
+
+fragment WorkbenchElementMagicPromptData on WorkbenchElementMagicPrompt {
+  __typename
+  id
+  height
+  width
+  x
+  y
+  zIndex
+  updatedAt
+  magicPromptType
+  sourceDrawings {
+    edges {
+      createdAt
+      sortOrder
+      node {
+        id
+        thumbnailPath
+      }
+    }
+  }
+  mediaSources {
+    nodes {
+      id
+      workbenchElementScene3DId
+      view3DId
+      sortOrder
+      createdAt
+    }
+  }
+  customPromptData {
+    ...WorkbenchElementMagicPromptCustomPromptData
+  }
+  newView {
+    ...WorkbenchElementMagicPromptNewViewData
+  }
+  newAngle {
+    ...WorkbenchElementMagicPromptNewAngleData
+  }
+  changeExpression {
+    ...WorkbenchElementMagicPromptChangeExpressionData
+  }
+  extractMaterial {
+    ...WorkbenchElementMagicPromptExtractMaterialData
+  }
+  formVariation {
+    ...WorkbenchElementMagicPromptFormVariationData
+  }
+}
+
+fragment WorkbenchElementStickyNoteData on WorkbenchElementStickyNote {
+  __typename
+  id
+  height
+  width
+  x
+  y
+  zIndex
+  updatedAt
+  content
+  contentHeight
+  author
+  style
+  link
+}
+
+fragment WorkbenchElementColorSwatchData on WorkbenchElementColorSwatch {
+  __typename
+  id
+  height
+  width
+  x
+  y
+  zIndex
+  updatedAt
+  name
+  colors
+  sourceAssetKind
+  sourceAssetId
+}
