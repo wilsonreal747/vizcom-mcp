@@ -1,6 +1,25 @@
 # Vizcom MCP (unofficial)
 
-A local stdio MCP adapter for sketch rendering and collaborative Vizcom boards. It uses authenticated web-client operations, without moving your mouse or controlling browser windows. This project is not affiliated with or endorsed by Vizcom. An authorized Vizcom account is required; generation consumes your account credits. Upstream interface changes may break compatibility.
+[English](README.md) | [简体中文](README.zh-CN.md)
+
+**Bring AI agents into your Vizcom design workflow: render sketches, generate reference-based variations, edit selected regions, and organize a shared board—without taking over your mouse.**
+
+Built by [Wilson](https://github.com/wilsonreal747) from a designer's everyday workflow. A local stdio MCP adapter over authenticated web-client operations. **Early preview, not a complete Vizcom API.** Not affiliated with or endorsed by Vizcom. Your own authorized account is required; generation consumes Vizcom credits and upstream interface changes may break compatibility.
+
+[Capabilities & evidence](docs/CAPABILITIES.md) · [Roadmap](docs/ROADMAP.md) · [Contributing](CONTRIBUTING.md) · [MIT license](LICENSE)
+
+## What you can do
+
+| Workflow | Outcome |
+| --- | --- |
+| Sketch to image | Upload a sketch, submit a render, poll the same job and download the result |
+| Multi-reference exploration | Connect ordered images to an editable native prompt node; generate 1–4 candidates |
+| Local changes | Submit a masked edit and optionally restore every outside-mask pixel on publication |
+| Shared-board organization | Move/resize nodes, create sections, check containment and restore recorded layouts |
+
+Native prompt nodes and generated images are visible on the same Vizcom board that the designer uses. Studio results need an explicit publish step. This is shared-board editing, not a real-time collaboration protocol or an atomic edit lock.
+
+**Evidence:** historical live upload/render/download, a two-reference/two-output batch, masked edit/publication, and layout recovery on one Windows setup. Fourteen offline tests cover selected contracts; they do not establish full feature coverage. No public end-to-end demo or multi-device certification yet. See the capability matrix before relying on a workflow.
 
 ## Download and install
 
@@ -58,4 +77,10 @@ Additional tools include `vizcom_create_workbench`, `vizcom_create_section`, `vi
 
 This repository contains adapter source, tests, a dependency lock, a synthetic sketch and the minimal persisted-operation identifiers/schema needed for compatibility. No vendor frontend bundles, model weights, database dump, account credentials, private board IDs or customer artwork are distributed. The API is unofficial; this is not a reconstruction of Vizcom's database or models. Third-party service names and API identifiers remain their owners' property.
 
-Video, 3D, model training and full layered export are unsupported. Drawing previews do not guarantee full-resolution or layered originals. `package.json` is private to prevent accidental npm publication; this does not prevent GitHub source distribution. No open-source license is granted by this initial source publication; reuse permissions can be clarified with the repository owner.
+Video, 3D, model training and full layered export are unsupported. Drawing previews do not guarantee full-resolution or layered originals. `package.json` is private to prevent accidental npm publication; no npm package or one-click installer is provided.
+
+## License and feedback
+
+The adapter code is [MIT licensed](LICENSE). Dependencies retain their own licenses; this license grants no rights to Vizcom services, trademarks, models or user artwork. The original v0.1.0 tag predates the license addition; use the current main branch for the licensed documentation baseline.
+
+Useful feedback includes your OS/Node/client versions, sanitized reproduction steps, expected/actual behavior, and whether credits may already have been spent. Never post tokens, browser profiles, private board IDs or customer artwork. Start with the [contribution guide](CONTRIBUTING.md).
