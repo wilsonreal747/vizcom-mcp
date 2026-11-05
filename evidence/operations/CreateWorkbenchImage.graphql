@@ -1,0 +1,15 @@
+mutation CreateWorkbenchImage($input: CreateWorkbenchAssetImageInput!) {
+  createWorkbenchAssetImage(input: $input) {
+    workbenchAssetImage {
+      ...WorkbenchAssetImageData
+    }
+  }
+}
+
+fragment WorkbenchAssetImageData on WorkbenchAssetImage {
+  id
+  assetFolderId
+  name
+  imagePath
+  description
+}

@@ -14,26 +14,34 @@ Audit: 2026-11-04. Scope: the public adapter, not every script on the original d
 | publish_result | Download, normalize, upload result; optional outside-mask restoration; local receipt | Historical board publication/reuse; offline exact outside-pixel test; seams remain possible |
 | download_drawing | Server thumbnail/preview | Historical downloads; no full layered or original-resolution guarantee |
 | create_section, arrange_nodes, restore_layout | Create frame; update up to 200 nodes; timestamp preflight and local restore journal | Historical moves/restore/containment; selected stale-write and geometry tests |
-| update_prompt_node | Existing prompt text only, timestamp preflight | Historical readback; reference rewiring is not exposed |
+| update_prompt_node | Existing prompt text only, timestamp preflight | Historical readback; ordered image rewiring is exposed separately |
 | import_image | PNG/JPEG/WebP with EXIF normalization | Implemented; JPEG/WebP import variants not separately live-certified |
 | check_layout | Center/Y-up containment and overlap | Offline geometry and historical live board readback; no client screenshot equivalence |
 
-Tool names above omit the common `vizcom_` prefix. Related entry points share implementations: **21 tools are not 21 independently proven workflows.**
+Tool names above omit the common `vizcom_` prefix. Related entry points share implementations: **31 tools are not 31 independently proven workflows.**
 
 ## Known gaps, ordered by impact
 
 1. **Installation and authentication:** one-machine evidence; Windows Edge Default only live-verified. No profile picker, proactive expiry diagnosis, automatic token renewal, or portable OAuth. Token injection is supported but cross-platform acceptance remains open.
 2. **Job recovery:** board generation saves output IDs before submission. Studio render/edit paths do not yet uniformly persist IDs before network calls or surface them on all failures. No unified queue, task ledger, cancellation or restart/resume command. A missing response can mean a submitted, billable task.
-3. **Collaboration:** stale checks happen before a separate write, not atomically. No subscriptions, collaborative lock, general undo, arbitrary node deletion/rename/reconnection or conflict merge. Layout recovery is limited to recorded positions/sizes and the original local journal.
+3. **Collaboration:** stale checks happen before a separate write, not atomically. No subscriptions, collaborative lock, general undo, arbitrary node deletion/rename; only sections can be renamed and custom 2D prompt image sources can be reconnected and no conflict merging. Layout recovery is limited to recorded positions/sizes and the original local journal.
 4. **Generation controls:** public batch defaults to one output and 2k. Exposed resolution tiers are 1k/2k/4k/source. There is no separate aspect-ratio/Original selector, model catalog, seed, per-reference weight, cost estimator, or quality benchmark. Studio style strings are interface values, not proof of underlying model identity.
 5. **Image QA:** only first available Studio output is published/downloaded. Mask restoration resizes generated pixels to source dimensions and uses a hard threshold; boundaries and geometry can still look wrong. No feathering, native layer preservation or visual acceptance automation.
 6. **Discovery and exports:** recent-board list is capped at 20. No full workspace search/pagination, folder CRUD, arbitrary Studio-layer operations, high-resolution export contract, video, 3D or model training.
-7. **Public maintenance:** persisted operation hashes can drift; no automatic schema compatibility check or compatibility CI. MCP mutation annotations need per-tool review; current shared registration reports destructiveHint=false for every tool, including edits. No production support/SLA is offered.
+7. **Public maintenance:** persisted operation hashes can drift; no automatic schema compatibility check or compatibility CI. Edit operations now advertise destructiveHint=true; additions retain false. No production support/SLA is offered.
 
 ## What the evidence does not say
 
-Fourteen tests are selected checks, not a coverage percentage or a security audit. Historical successful calls do not certify all 21 tools, other machines, every source format, every paid tier or every host client. Private acceptance images/logs are not distributed. No database or model weights were reconstructed. Shared board visibility does not imply a complete real-time collaboration implementation.
+Twenty tests are selected checks, not a coverage percentage or a security audit. Historical successful calls do not certify all 31 tools, other machines, every source format, every paid tier or every host client. Private acceptance images/logs are not distributed. No database or model weights were reconstructed. Shared board visibility does not imply a complete real-time collaboration implementation.
 
 ## 中文结论
 
 已跑通的是“本地 Agent 参与二维设计的核心闭环”，不只是整理画板，也还不是“Vizcom 全功能自动化”。先解决新用户安装、认证、任务恢复、参考与画幅控制、可靠排版和可公开复现，再按真实用户需求扩功能。每次验收区分：代码存在、离线测试、真实调用、跨设备复现、设计认可。
+
+## 0.2.0 acceptance — 2026-11-05
+
+- Live read: image lists for all four scopes, workbench folder list and asset search. Nonempty personal-library results confirmed; pagination is fixture-tested, not live multi-page certified.
+- Isolated synthetic board: save a preview asset, read it, place the hosted image without multipart upload, create/update a note, create/update a section, reverse two image references while retaining prompt text. Every write was read back. No EHS artwork moved, no paid generation, no client screenshot/layout acceptance claimed.
+- Offline: 20 tests including stale edits, mixed-3D refusal, duplicate source rejection, scope paths, privacy filtering, WebP measurement, recovery receipts and existing runtime checks.
+- `save_drawing_asset` writes new workbench-library entries only. Folder libraries are read/reuse sources, not write targets. Parent/version metadata is descriptive workflow provenance; no native asset version tree, acceptance state or automatic branch migration. Stored drawing previews do not guarantee original resolution.
+- `create_note` / `update_note`, `update_section` and `set_prompt_sources` extend visible work areas; they do not implement ComfyUI scheduling or graph execution.

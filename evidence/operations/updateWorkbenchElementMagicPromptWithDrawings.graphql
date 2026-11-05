@@ -1,0 +1,123 @@
+mutation updateWorkbenchElementMagicPromptWithDrawings($input: UpdateWorkbenchElementMagicPromptWithDrawingsInput!) {
+  updateWorkbenchElementMagicPromptWithDrawings(input: $input) {
+    workbenchElementMagicPrompt {
+      ...WorkbenchElementMagicPromptData
+    }
+  }
+}
+
+fragment WorkbenchElementMagicPromptCustomPromptData on WorkbenchElementMagicPromptCustomPrompt {
+  __typename
+  id
+  workbenchElementMagicPromptId
+  promptText
+  contentHeight
+  aspectRatio
+  qualityMode
+  resolution
+}
+
+fragment WorkbenchElementMagicPromptNewViewData on WorkbenchElementMagicPromptNewView {
+  __typename
+  id
+  view
+}
+
+fragment WorkbenchElementMagicPromptNewAngleData on WorkbenchElementMagicPromptNewAngle {
+  __typename
+  id
+  selectedVerticalAngle
+  selectedHorizontalAngle
+  viewMode
+}
+
+fragment WorkbenchElementMagicPromptChangeExpressionData on WorkbenchElementMagicPromptChangeExpression {
+  __typename
+  id
+  expression
+}
+
+fragment WorkbenchElementMagicPromptExtractMaterialData on WorkbenchElementMagicPromptExtractMaterial {
+  __typename
+  id
+  material
+  normalizedCropX
+  normalizedCropY
+  normalizedCropWidth
+  normalizedCropHeight
+  cropZoom
+  activeTab
+  colorSampleBy
+  numColors
+  extractedColorPalette
+  modifiedColorPalette
+  paletteName
+  detectedObjects
+  selectedObjects
+  enablePbr
+  pbrResultsLocation
+}
+
+fragment WorkbenchElementMagicPromptFormVariationData on WorkbenchElementMagicPromptFormVariation {
+  __typename
+  id
+  xCoordinate
+  yCoordinate
+  mode
+  extractedColorPalette
+  modifiedColorPalette
+  preset
+  batchMode
+  axisLabels
+  generationQuantity
+  shuffleColors
+}
+
+fragment WorkbenchElementMagicPromptData on WorkbenchElementMagicPrompt {
+  __typename
+  id
+  height
+  width
+  x
+  y
+  zIndex
+  updatedAt
+  magicPromptType
+  sourceDrawings {
+    edges {
+      createdAt
+      sortOrder
+      node {
+        id
+        thumbnailPath
+      }
+    }
+  }
+  mediaSources {
+    nodes {
+      id
+      workbenchElementScene3DId
+      view3DId
+      sortOrder
+      createdAt
+    }
+  }
+  customPromptData {
+    ...WorkbenchElementMagicPromptCustomPromptData
+  }
+  newView {
+    ...WorkbenchElementMagicPromptNewViewData
+  }
+  newAngle {
+    ...WorkbenchElementMagicPromptNewAngleData
+  }
+  changeExpression {
+    ...WorkbenchElementMagicPromptChangeExpressionData
+  }
+  extractMaterial {
+    ...WorkbenchElementMagicPromptExtractMaterialData
+  }
+  formVariation {
+    ...WorkbenchElementMagicPromptFormVariationData
+  }
+}

@@ -1,0 +1,21 @@
+query folderAssetImage($id: UUID!) {
+  folderAssetImage(id: $id) {
+    ...FolderAssetImageData
+    createdAt
+    updatedAt
+    userByCreatedBy {
+      id
+      name
+      email
+    }
+  }
+}
+
+fragment FolderAssetImageData on FolderAssetImage {
+  id
+  assetFolderId
+  name
+  imagePath
+  folderId
+  description
+}

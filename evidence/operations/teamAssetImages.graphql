@@ -1,0 +1,34 @@
+query teamAssetImages($workbenchId: UUID!, $after: Cursor, $assetFolderFilter: UUIDFilter!) {
+  workbench(id: $workbenchId) {
+    id
+    team {
+      id
+      rootFolder {
+        id
+        folderAssetImages(
+          first: 50
+          after: $after
+          orderBy: CREATED_AT_DESC
+          filter: {assetFolderId: $assetFolderFilter}
+        ) {
+          pageInfo {
+            hasNextPage
+            endCursor
+          }
+          nodes {
+            ...FolderAssetImageData
+          }
+        }
+      }
+    }
+  }
+}
+
+fragment FolderAssetImageData on FolderAssetImage {
+  id
+  assetFolderId
+  name
+  imagePath
+  folderId
+  description
+}

@@ -1,0 +1,78 @@
+query workbenchAssetFolders($workbenchId: UUID!, $parentFilter: UUIDFilter!, $after: Cursor) {
+  workbench(id: $workbenchId) {
+    id
+    workbenchAssetFolders(
+      first: 100
+      after: $after
+      orderBy: CREATED_AT_DESC
+      filter: {parentAssetFolderId: $parentFilter}
+    ) {
+      nodes {
+        ...WorkbenchAssetFolderData
+      }
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+    }
+  }
+}
+
+fragment WorkbenchAssetFolderData on WorkbenchAssetFolder {
+  id
+  name
+  description
+  parentAssetFolderId
+  workbenchId
+  assetsCount
+  previewImages {
+    nodes {
+      id
+      imagePath
+    }
+  }
+  previewCollections {
+    nodes {
+      id
+      stitchedImagePath
+      firstImages: workbenchAssetCollectionImages(first: 1, orderBy: CREATED_AT_ASC) {
+        nodes {
+          id
+          imagePath
+        }
+      }
+    }
+  }
+  previewMeshes {
+    nodes {
+      id
+      thumbnailPath
+    }
+  }
+  previewVideos {
+    nodes {
+      id
+      thumbnailPath
+    }
+  }
+  previewPrompts {
+    nodes {
+      id
+      thumbnailPath
+    }
+  }
+  previewColors {
+    nodes {
+      id
+      red
+      green
+      blue
+    }
+  }
+  previewPalettes {
+    nodes {
+      id
+      colors
+    }
+  }
+}

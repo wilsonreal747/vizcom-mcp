@@ -9,6 +9,7 @@ import {fileURLToPath} from 'node:url';
 import {VizcomClient} from './client.mjs';
 import {existingSession} from './session.mjs';
 import {BoardClient,summarize} from './board.mjs';
+import {AssetClient} from './assets.mjs';
 import {publishResult} from './publish.mjs';
 import {contains,overlaps} from './geometry.mjs';
 const root=fileURLToPath(new URL('../',import.meta.url));
@@ -16,15 +17,17 @@ const inputRoot=resolve(process.env.VIZCOM_INPUT_ROOT??join(root,'inputs'));
 const outputRoot=resolve(process.env.VIZCOM_OUTPUT_ROOT??join(root,'outputs'));
 const client=new VizcomClient();
 const boardClient=new BoardClient(client,outputRoot);
+const assetClient=new AssetClient(client,boardClient);
 if(!client.token&&process.env.VIZCOM_SESSION_SOURCE)client.token=await existingSession(process.env.VIZCOM_SESSION_SOURCE);
-const server=new McpServer({name:'wilson-vizcom-mcp',version:'0.1.0'});
+const server=new McpServer({name:'wilson-vizcom-mcp',version:'0.2.0'});
 function within(root,file){const rel=relative(root,file);return rel!== '..'&&!rel.startsWith('..\\')&&!rel.startsWith('../')&&!isAbsolute(rel);}
 async function inputPath(file){
  const path=resolve(inputRoot,file);const allowedRoot=within(inputRoot,path)?inputRoot:within(outputRoot,path)?outputRoot:null;if(!allowedRoot)throw Error('INPUT_OUTSIDE_ROOT');
  const [actualRoot,actualPath]=await Promise.all([realpath(allowedRoot),realpath(path)]);
  if(!within(actualRoot,actualPath))throw Error('INPUT_OUTSIDE_ROOT');return actualPath;
 }
-function register(name,description,inputSchema,fn,readOnly=false){server.registerTool(name,{description,inputSchema,annotations:{readOnlyHint:readOnly,destructiveHint:false,idempotentHint:readOnly,openWorldHint:true}},async args=>{
+const edits=new Set(['vizcom_arrange_nodes','vizcom_restore_layout','vizcom_update_prompt_node','vizcom_update_note','vizcom_update_section','vizcom_set_prompt_sources']);
+function register(name,description,inputSchema,fn,readOnly=false){server.registerTool(name,{description,inputSchema,annotations:{readOnlyHint:readOnly,destructiveHint:edits.has(name),idempotentHint:readOnly,openWorldHint:true}},async args=>{
  try{return {content:[{type:'text',text:JSON.stringify(await fn(args))}]};}
  catch(error){return {isError:true,content:[{type:'text',text:String(error.message).split(client.token||'\u0000').join('[redacted]')}]};}
 });}
@@ -64,6 +67,7 @@ register('vizcom_publish_result','Place a completed Studio render/edit onto a bo
 });
 register('vizcom_update_prompt_node','Update the text of a visible custom prompt node with best-effort stale-edit detection. Does not generate.',{workbenchId:id,nodeId:id,expectedUpdatedAt:z.string(),prompt:z.string().min(1).max(8000)},async a=>{
  const b=await boardClient.board(a.workbenchId),n=b.magicPrompts.nodes.find(n=>n.id===a.nodeId);
+ if(!b.isEditable)throw Error('BOARD_NOT_EDITABLE');
  if(!n||n.updatedAt!==a.expectedUpdatedAt)throw Error('NODE_CHANGED_OR_MISSING');
  const journal=await boardClient.record('prompt-update',{workbenchId:a.workbenchId,before:n,newPrompt:a.prompt});
  await client.operation('UpdateMagicPromptWithCustomPromptData',{input:{elementId:n.id,magicPromptId:n.customPromptData.id,promptText:a.prompt}});return {journal,nodeId:n.id};
@@ -91,4 +95,17 @@ register('vizcom_check_layout','Check actual center-based/Y-up bounds: nodes out
  const pairs=items=>items.flatMap((n,i)=>items.slice(i+1).filter(m=>overlaps(n,m)).map(m=>[n.id,m.id]));
  return {coordinateSystem:'center x/y, positive Y up',sectionCount:sections.length,nodeCount:nodes.length,outsideSections:nodes.filter(n=>!sections.some(s=>contains(s,n,a.padding))).map(n=>({id:n.id,name:n.name})),overlappingNodes:pairs(nodes),overlappingSections:pairs(sections)};
 },true);
+const assetList={workbenchId:id,scope:z.enum(['workbench','personal','team','organization']).default('workbench'),assetFolderId:id.nullable().optional(),after:z.string().max(2000).optional()};
+register('vizcom_list_asset_images','List one page (up to 50) of library images, with pagination. assetFolderId omitted: all folders; null: root; UUID: one folder. Uses an accessible board as scope context; unavailable scope is explicit.',assetList,a=>assetClient.list(a),true);
+register('vizcom_list_asset_folders','List one page (up to 100) of library folders. assetFolderId filters the parent folder; omit for all, null for root. Does not create folders.',assetList,a=>assetClient.list(a,true),true);
+register('vizcom_search_assets','Search accessible library assets by name using a board context. Returns asset type and scope. A limit-sized result may be truncated; use paginated lists for inventory.',{workbenchId:id,query:z.string().trim().min(1).max(300),limit:z.number().int().min(1).max(100).default(30)},a=>assetClient.search(a),true);
+const assetRef={assetId:id,storage:z.enum(['workbench','folder']).default('workbench')};
+register('vizcom_read_asset_image','Read an image asset including updatedAt and hosted image path. Personal/team/organization assets use storage=folder. Creator identity fields are excluded.',assetRef,a=>assetClient.read(a),true);
+register('vizcom_save_drawing_asset','Save a board drawing preview as a NEW workbench image asset; never overwrite another version. Records source drawing, explicit version and optional parent asset. This is workflow versioning, not native version history or full-resolution Studio export. Reuse the SAME requestId to recover; never replace it after an uncertain response.',{workbenchId:id,drawingId:id,name:z.string().trim().min(1).max(160),version:z.string().trim().min(1).max(60),description:z.string().max(2000).default(''),parentAsset:z.object(assetRef).optional(),requestId:id},a=>assetClient.save(a));
+register('vizcom_place_asset_image','Place a stored asset on an editable board, reusing its hosted pixels without re-upload. Requires current asset updatedAt. Measures image dimensions locally; keeps source asset provenance in recovery journal. x/y are centers, positive Y up. Reuse SAME requestId for recovery.',{workbenchId:id,...assetRef,expectedUpdatedAt:z.string(),...position,displayWidth:z.number().positive().max(16000).default(800),requestId:id},a=>assetClient.place(a));
+register('vizcom_create_note','Create a visible plain-text sticky note for the question, fixed variables, judgment or next step. Text is escaped, not executable HTML. No generation.',{workbenchId:id,text:z.string().min(1).max(5000),...position,width:z.number().positive().default(360),height:z.number().positive().default(260)},a=>boardClient.createNote(a));
+const editNode={workbenchId:id,nodeId:id,expectedUpdatedAt:z.string()};
+register('vizcom_update_note','Replace a sticky note text after checking its timestamp. Journal keeps previous content; readback verifies the update.',{...editNode,text:z.string().min(1).max(5000)},a=>boardClient.updateNote(a));
+register('vizcom_update_section','Rename or recolor an existing section without moving its contents. Requires current timestamp and returns readback verification.',{...editNode,title:z.string().min(1).max(160).optional(),color:z.string().regex(/^#[a-fA-F0-9]{6}$/).optional()},a=>boardClient.updateSection(a));
+register('vizcom_set_prompt_sources','Replace the ORDERED 1–4 image references of a custom prompt node, retaining its prompt/settings. No generation. Requires current timestamp and images on the same board. Mixed 3D references are rejected to preserve those links.',{...editNode,sourceDrawingIds:z.array(id).min(1).max(4)},a=>boardClient.setSources(a));
 await server.connect(new StdioServerTransport());
