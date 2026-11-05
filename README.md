@@ -8,6 +8,10 @@ Built by [Wilson](https://github.com/wilsonreal747) from a designer's everyday w
 
 [Capabilities & evidence](docs/CAPABILITIES.md) · [Roadmap](docs/ROADMAP.md) · [Contributing](CONTRIBUTING.md) · [MIT license](LICENSE)
 
+## New in 0.2.0
+
+Asset image/folder discovery across workbench, personal, team and organization libraries; asset search/read; save a drawing preview as a version-labelled snapshot; reuse its hosted image on a board without uploading it again. Notes, section titles/colors and ordered prompt references are now editable. `read_board` includes original drawing dimensions and resize ratios. **31 tools, 20 offline tests**; the new nonbillable workflow was verified on an isolated synthetic board on 2026-11-05. See [asset and exploration workflow](docs/ASSET-WORKFLOW.md). This does not add native asset history, full-resolution export, 3D or video.
+
 ## What you can do
 
 | Workflow | Outcome |
@@ -19,7 +23,7 @@ Built by [Wilson](https://github.com/wilsonreal747) from a designer's everyday w
 
 Native prompt nodes and generated images are visible on the same Vizcom board that the designer uses. Studio results need an explicit publish step. This is shared-board editing, not a real-time collaboration protocol or an atomic edit lock.
 
-**Evidence:** historical live upload/render/download, a two-reference/two-output batch, masked edit/publication, and layout recovery on one Windows setup. Fourteen offline tests cover selected contracts; they do not establish full feature coverage. No public end-to-end demo or multi-device certification yet. See the capability matrix before relying on a workflow.
+**Evidence:** historical live upload/render/download, a two-reference/two-output batch, masked edit/publication, and layout recovery on one Windows setup. Twenty offline tests cover selected contracts; they do not establish full feature coverage. No public end-to-end demo or multi-device certification yet. See the capability matrix before relying on a workflow.
 
 ## Download and install
 

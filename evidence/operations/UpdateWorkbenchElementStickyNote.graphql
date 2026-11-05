@@ -1,0 +1,23 @@
+mutation UpdateWorkbenchElementStickyNote($input: UpdateWorkbenchElementStickyNoteInput!) {
+  updateWorkbenchElementStickyNote(input: $input) {
+    workbenchElementStickyNote {
+      ...WorkbenchElementStickyNoteData
+    }
+  }
+}
+
+fragment WorkbenchElementStickyNoteData on WorkbenchElementStickyNote {
+  __typename
+  id
+  height
+  width
+  x
+  y
+  zIndex
+  updatedAt
+  content
+  contentHeight
+  author
+  style
+  link
+}

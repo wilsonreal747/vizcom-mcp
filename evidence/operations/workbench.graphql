@@ -1,0 +1,47 @@
+query workbench($id: UUID!) {
+  workbench(id: $id) {
+    ...WorkbenchBasicData
+  }
+}
+
+fragment WorkbenchBasicData on Workbench {
+  id
+  name
+  folderId
+  thumbnail
+  sharingSecret
+  publicSharingEnabled
+  thumbnailDrawingId
+  createdAt
+  updatedAt
+  isEditable
+  isMovable
+  isSharedWithMe
+  lastUpdatedBy {
+    id
+    name
+    email
+  }
+  drawingThumbnails {
+    nodes {
+      id
+      thumbnailPath
+    }
+  }
+  creator {
+    id
+    name
+    email
+  }
+  team {
+    id
+    name
+  }
+  folder {
+    id
+    organization {
+      id
+      publicSharing
+    }
+  }
+}

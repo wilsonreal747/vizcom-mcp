@@ -1,6 +1,6 @@
 ---
 name: vizcom-workbench
-description: Use when working with Vizcom through its unofficial MCP to render sketches, use ordered reference images, edit masked regions, download results, or organize a shared design board. Also use to diagnose missing Vizcom tools or uncertain generation outcomes.
+description: Use when working with Vizcom through its unofficial MCP to render sketches, use ordered reference images, edit masked regions, download results, organize a shared design board, reuse versioned library baselines, or structure visual exploration. Also use to diagnose missing Vizcom tools or uncertain generation outcomes.
 ---
 
 # Vizcom workbench
@@ -22,6 +22,8 @@ Read [operations and limits](references/operations.md) for parameter semantics, 
 
 | Task | Path |
 | --- | --- |
+| Reuse a baseline | Search/list assets → read asset/version → place hosted asset → record the new drawing ID; save a new snapshot only after selection |
+| Visible exploration | Define question/fixed inputs/variable → note + section → ordered references → comparable results → short judgment and next step |
 | Sketch render | `upload_sketch` → `render_sketch` → record promptId → `get_result` → `download_result`; `publish_result` makes the Studio result visible on the board |
 | Reference exploration | Read/import references → `create_prompt_node` with ordered sourceDrawingIds → `generate_board` with explicit count/resolution → read outputs → `download_drawing` |
 | Local modification | Same-sized source and mask PNG → `edit_region` → record/poll promptId → download/publish; rectangular masks can use `make_region_mask` |
@@ -30,6 +32,8 @@ Read [operations and limits](references/operations.md) for parameter semantics, 
 Preserve user-specified reference order. State each image's role in a short prompt: base vehicle/view/composition versus borrowed feature/style. When the user requests base-last, put it last; never silently swap the roles. Use the requested count (batch supports 1–4 per call). Do not adopt a universal three-image default or split larger requests without considering total authorized generation.
 
 The current tools do not expose an independent Original/aspectRatio control. `source` is a resolution tier, and placeholder width/height are not guaranteed generation aspect controls. If exact Original is essential, explain this missing control and resolve that requirement before paid submission. Do not quietly substitute it.
+
+Read [assets and visual exploration](references/assets-and-exploration.md) for baseline versions, reference rewiring, note content and recovery.
 
 ## Handle failure and shared edits
 

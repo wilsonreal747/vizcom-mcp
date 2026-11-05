@@ -1,0 +1,20 @@
+query workbenchAssetImageById($id: UUID!) {
+  workbenchAssetImage(id: $id) {
+    ...WorkbenchAssetImageData
+    createdAt
+    updatedAt
+    userByCreatedBy {
+      id
+      name
+      email
+    }
+  }
+}
+
+fragment WorkbenchAssetImageData on WorkbenchAssetImage {
+  id
+  assetFolderId
+  name
+  imagePath
+  description
+}

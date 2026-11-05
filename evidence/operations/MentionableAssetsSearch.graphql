@@ -1,0 +1,25 @@
+query MentionableAssetsSearch($workbenchId: UUID!, $searchQuery: String!, $first: Int!, $type: MentionableAssetType, $includeFolders: Boolean) {
+  mentionableAssetsSearch(
+    workbenchId: $workbenchId
+    searchQuery: $searchQuery
+    first: $first
+    type: $type
+    includeFolders: $includeFolders
+  ) {
+    id
+    name
+    type
+    scope
+    thumbnailUrl
+    paletteColors
+    folderContents {
+      itemCount
+      previewItems {
+        id
+        type
+        thumbnailUrl
+        paletteColors
+      }
+    }
+  }
+}

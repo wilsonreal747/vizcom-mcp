@@ -1,0 +1,90 @@
+query organizationAssetFolders($workbenchId: UUID!, $parentFilter: UUIDFilter!, $after: Cursor) {
+  workbench(id: $workbenchId) {
+    id
+    folder {
+      id
+      organization {
+        id
+        globalTeam {
+          id
+          rootFolder {
+            id
+            folderAssetFolders(
+              first: 100
+              after: $after
+              orderBy: CREATED_AT_DESC
+              filter: {parentAssetFolderId: $parentFilter}
+            ) {
+              pageInfo {
+                hasNextPage
+                endCursor
+              }
+              nodes {
+                ...FolderAssetFolderData
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+fragment FolderAssetFolderData on FolderAssetFolder {
+  id
+  name
+  description
+  parentAssetFolderId
+  folderId
+  assetsCount
+  previewImages {
+    nodes {
+      id
+      imagePath
+    }
+  }
+  previewCollections {
+    nodes {
+      id
+      stitchedImagePath
+      firstImages: folderAssetCollectionImages(first: 1, orderBy: CREATED_AT_ASC) {
+        nodes {
+          id
+          imagePath
+        }
+      }
+    }
+  }
+  previewMeshes {
+    nodes {
+      id
+      thumbnailPath
+    }
+  }
+  previewVideos {
+    nodes {
+      id
+      thumbnailPath
+    }
+  }
+  previewPrompts {
+    nodes {
+      id
+      thumbnailPath
+    }
+  }
+  previewColors {
+    nodes {
+      id
+      red
+      green
+      blue
+    }
+  }
+  previewPalettes {
+    nodes {
+      id
+      colors
+    }
+  }
+}

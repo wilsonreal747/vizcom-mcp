@@ -7,7 +7,10 @@ test('stdio MCP discovery and explicit unauthenticated status',async t=>{
  const transport=new StdioClientTransport({command:process.execPath,args:[fileURLToPath(new URL('../src/server.mjs',import.meta.url))],env:{VIZCOM_ACCESS_TOKEN:''},stderr:'pipe'});
  const client=new Client({name:'smoke-test',version:'1.0'});t.after(()=>client.close());
  await client.connect(transport);
- const {tools}=await client.listTools();assert.equal(tools.length,21);
+ const {tools}=await client.listTools();assert.equal(tools.length,31);
+ assert.equal(tools.find(t=>t.name==='vizcom_set_prompt_sources').annotations.destructiveHint,true);
+ assert.equal(tools.find(t=>t.name==='vizcom_read_asset_image').annotations.readOnlyHint,true);
+ assert.ok(tools.find(t=>t.name==='vizcom_place_asset_image').inputSchema.required.includes('requestId'));
  const result=await client.callTool({name:'vizcom_status',arguments:{}});
  assert.equal(result.isError,true);assert.match(result.content[0].text,/AUTH_REQUIRED/);
  const traversal=await client.callTool({name:'vizcom_upload_sketch',arguments:{file:'../package.json',workbenchId:'11111111-1111-4111-8111-111111111111'}});

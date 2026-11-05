@@ -15,6 +15,21 @@
     "drawingById": "03d8a17d54d2fdd9daa8b98186926c73024a39787deb972b761ff8cab6fac5c0",
     "UpdateMagicPromptWithCustomPromptData": "c900a88cc5e17b84ab5edb6ce1adcf03243c6bd1a66f2baa68f2b7c4905669a0",
     "UpdateWorkbenchElementSection": "7b9f2a7a94da7a6b0ba2b34e8f339b72c67b877291ccacccbeef721efc87c417",
-    "DeleteWorkbenchElements": "a08325b7ee4b15dfd316cb3cdbfde807c3c11b9be5e6f2a24c6e7dda8489e63b"
+    "DeleteWorkbenchElements": "a08325b7ee4b15dfd316cb3cdbfde807c3c11b9be5e6f2a24c6e7dda8489e63b",
+    "workbenchAssetImages": "af64be3f264251e2e73892e4d4679eeebe2be1c07d03caa15f5384cdb25d0455",
+    "personalAssetImages": "3583824ea3a51934618c3b266aba4dcbb34dbf2649d1dab8f3fc84c2363150a7",
+    "organizationAssetImages": "0f694a721253ab111958592c24939b04deb0449a284832c76457bb29eecba5fc",
+    "teamAssetImages": "2f234265e4844f7d608d85bf485ad2d09e3431dc9e38951bdc10b415a971febc",
+    "workbenchAssetFolders": "0050b7330b7b803e61a5077f73245f08e6f7294338a34318d52a780deb01821c",
+    "personalAssetFolders": "5c9f0fdd4f43286cd3b90a3c9476897fc2d2060667a06720146309fd1be8ed4b",
+    "organizationAssetFolders": "1df90f2fcd43dfe0676a9f8c8bd47172e43a3e8554b958458076c3b149001ccf",
+    "teamAssetFolders": "356f0a8d46a6bab6ea6a36ddff489b28d1f5f6040cfda086cb5445f775e34106",
+    "MentionableAssetsSearch": "800461d815f5a88c6c6e0fb20f25ea92309f76be3195838c70319cbbd5330d72",
+    "workbenchAssetImageById": "4ea678bf395c416f82449a3cdd323a0e6ec0c0bbe912821cab84165e3698a881",
+    "folderAssetImage": "69009c469487864b74b980cd8031fe06db8ae7bf683858dbadeb77d1778a3ec2",
+    "CreateWorkbenchImage": "3fe93bb0903d282b64efcf0ea06ed5419ed7ae181aa9bd50dd1b6465ccc4cf75",
+    "UpdateWorkbenchElementStickyNote": "f3eddf74e2ad4117b7d1271ecede20f6ce5c9be018e6c6519f26288d8764b7ff",
+    "updateWorkbenchElementMagicPromptWithDrawings": "079560d1229b753d7c0d6f3635185751ae9869dc6ad0a441043858b77473a9bc",
+    "workbench": "4ebe3cdbbc63ab6c0874c8fe13e1f99a85735b76f8d7e713e991a5287bc56921"
   }
 }

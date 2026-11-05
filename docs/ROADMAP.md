@@ -28,3 +28,7 @@ A designer-built bridge between agent automation and a visual design workspace. 
 - [MCP for Blender](https://github.com/ahujasid/mcp-for-blender): visual-workspace use cases, install/upgrade guidance and feedback routes.
 
 These are presentation references, not code dependencies or endorsements. We do not infer that their adoption was caused by their README alone.
+
+## Delivered in 0.2.0
+
+Asset discovery/reuse and note/section/reference editing now support reusable baselines and visible experiment branches. Next priorities remain full workspace navigation, full-resolution exports, explicit generation controls, job recovery and portable authentication. UI concepts and operation contracts must be verified before adding each capability; see CAPABILITIES.md for evidence.
