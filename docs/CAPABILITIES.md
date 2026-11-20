@@ -1,6 +1,6 @@
 # Capabilities and evidence / 能力与证据
 
-Video update 2026-11-20: five new MCP tools (26 total) passed live native-node creation, image/video connection, generation and MP4 download. See [video evidence and limits](ANIMATE.md). The older audit below describes the original image/layout scope. Current offline suite: 19 tests.
+Video update 2026-11-20: seven video MCP tools (28 total) cover local upload, native-node creation/settings, image/video connection, generation and MP4 download. See [live evidence and exact limits](ANIMATE.md). The older audit below describes the original image/layout scope. Current offline suite: 25 passing tests.
 
 Audit: 2026-11-04. Scope: the public adapter, not every script on the original developer's machine. Historical live evidence was recorded on 2026-11-02; it is not a fresh service-availability guarantee. Offline tests use fixtures and local HTTP servers, not the paid service.
 

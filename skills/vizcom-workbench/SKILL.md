@@ -1,6 +1,6 @@
 ---
 name: vizcom-workbench
-description: Use when working with Vizcom through its unofficial MCP to render sketches, use ordered reference images, edit masked regions, download results, or organize a shared design board. Also use to diagnose missing Vizcom tools or uncertain generation outcomes.
+description: Use when working with Vizcom through its unofficial MCP to render sketches, use reference images, edit masked regions, upload local MP4 videos, generate Animate clips, download results, or organize a shared board. Also use for missing Vizcom tools or uncertain outcomes.
 ---
 
 # Vizcom workbench
@@ -18,7 +18,7 @@ Operate in the background. Do not activate windows, move the mouse, or fall back
 
 ## Choose a workflow
 
-For Animate video: discover `vizcom_read_animate`, `vizcom_create_animate`, `vizcom_connect_animate`, `vizcom_generate_animate` and `vizcom_download_video`. Follow [video operations](references/video.md). Do not infer video support from image tools or the offline prototype.
+For Animate video: discover `vizcom_upload_video`, `vizcom_read_animate`, `vizcom_create_animate`, `vizcom_update_animate`, `vizcom_connect_animate`, `vizcom_generate_animate` and `vizcom_download_video`. Follow [video operations](references/video.md). Do not infer video support from image tools or the offline prototype.
 
 Read [operations and limits](references/operations.md) for parameter semantics, recovery and geometry before the corresponding workflow.
 
@@ -31,7 +31,7 @@ Read [operations and limits](references/operations.md) for parameter semantics, 
 
 Preserve user-specified reference order. State each image's role in a short prompt: base vehicle/view/composition versus borrowed feature/style. When the user requests base-last, put it last; never silently swap the roles. Use the requested count (batch supports 1–4 per call). Do not adopt a universal three-image default or split larger requests without considering total authorized generation.
 
-The current tools do not expose an independent Original/aspectRatio control. `source` is a resolution tier, and placeholder width/height are not guaranteed generation aspect controls. If exact Original is essential, explain this missing control and resolve that requirement before paid submission. Do not quietly substitute it.
+The image tools do not expose an independent Original/aspectRatio control. `source` is a resolution tier, and placeholder width/height are not guaranteed generation aspect controls. If exact Original is essential for an image, explain this missing control and resolve that requirement before paid submission. Animate video has its own explicit aspectRatio setting.
 
 ## Handle failure and shared edits
 

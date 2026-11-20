@@ -7,6 +7,7 @@ const {hashes}=JSON.parse(readFileSync(new URL('../evidence/operations.json',imp
 const allowedOperations=new Set(['currentUser','CreateWorkbench','CreateDrawings','CreatePrompt','prompts','recentlyViewedWorkbenches','workbenchContent','UpdateDrawing','CreateEditPrompt','CreateWorkbenchElements','UpdateMultiWorkbenchElements','TriggerMagicPromptCustomPrompt','drawingById','UpdateMagicPromptWithCustomPromptData','UpdateWorkbenchElementSection','DeleteWorkbenchElements']);
 allowedOperations.add('UpdateWorkbenchElementAnimateSources');
 allowedOperations.add('TriggerWorkbenchElementAnimate');
+allowedOperations.add('UpdateWorkbenchElementAnimate');
 export class VizcomClient {
  constructor({token=process.env.VIZCOM_ACCESS_TOKEN??'',organizationId=process.env.VIZCOM_ORGANIZATION_ID??'',endpoint='https://app.vizcom.com/api/v1/graphql',fetchImpl=fetch,allowLocalTestServer=false}={}){
   const url=new URL(endpoint);

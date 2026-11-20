@@ -10,7 +10,7 @@ Built by [Wilson](https://github.com/wilsonreal747) from a designer's everyday w
 
 ## What you can do
 
-**Video update (2026-11-20):** native Animate creation, image/video connections, one-shot generation and MP4 download are now live-tested through MCP. Current source exposes 26 tools. See [Animate instructions and exact limits](docs/ANIMATE.md); restart the MCP host after upgrading. Historical v0.1.0 predates this update.
+**Video update (2026-11-20):** local MP4/image upload, native Animate connections, configurable aspect/model/audio/duration, generation and MP4 download are live-tested through MCP within the documented limits. Current source exposes 28 tools, with 25 passing offline tests. See [Animate instructions and exact limits](docs/ANIMATE.md); restart the MCP host after upgrading. Historical v0.1.0 predates this update.
 
 | Workflow | Outcome |
 | --- | --- |
@@ -81,7 +81,7 @@ Additional tools include `vizcom_create_workbench`, `vizcom_create_section`, `vi
 
 This repository contains adapter source, tests, a dependency lock, a synthetic sketch and the minimal persisted-operation identifiers/schema needed for compatibility. No vendor frontend bundles, model weights, database dump, account credentials, private board IDs or customer artwork are distributed. The API is unofficial; this is not a reconstruction of Vizcom's database or models. Third-party service names and API identifiers remain their owners' property.
 
-Video, 3D, model training and full layered export are unsupported. Drawing previews do not guarantee full-resolution or layered originals. `package.json` is private to prevent accidental npm publication; no npm package or one-click installer is provided.
+Video support is limited to the Custom workflows documented above. 3D, model training and full layered export are unsupported. Drawing previews do not guarantee full-resolution or layered originals. `package.json` is private to prevent accidental npm publication; no npm package or one-click installer is provided.
 
 ## License and feedback
 
