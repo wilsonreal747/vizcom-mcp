@@ -11,7 +11,7 @@ Status: proposal, 2026-11-04. Items below are not implemented promises or delive
 | P1 | Reliable board layouts | Preview plan, equal display width with preserved ratio, grouping, margins, stale-edit refusal and readback checks |
 | P1 | Better interoperability | CI for supported Node/platforms, per-tool MCP annotations, clean errors and contract-drift checks |
 | P2 | Extend only where users need it | Full board navigation, richer export or edit controls based on documented API evidence and user requests |
-| Later | Remote access / new modalities | Authenticated transport design and isolated credentials before any cloud gateway; 3D/video require separate discovery and validation |
+| Later | Remote access / new modalities | Authenticated transport design and isolated credentials before any cloud gateway; 3D requires separate discovery and validation; limited Animate video is now live-tested, see ANIMATE.md |
 
 ## How to help
 

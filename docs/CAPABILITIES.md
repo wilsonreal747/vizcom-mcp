@@ -1,5 +1,7 @@
 # Capabilities and evidence / 能力与证据
 
+Video update 2026-11-20: five new MCP tools (26 total) passed live native-node creation, image/video connection, generation and MP4 download. See [video evidence and limits](ANIMATE.md). The older audit below describes the original image/layout scope. Current offline suite: 19 tests.
+
 Audit: 2026-11-04. Scope: the public adapter, not every script on the original developer's machine. Historical live evidence was recorded on 2026-11-02; it is not a fresh service-availability guarantee. Offline tests use fixtures and local HTTP servers, not the paid service.
 
 ## Tool coverage
@@ -18,7 +20,7 @@ Audit: 2026-11-04. Scope: the public adapter, not every script on the original d
 | import_image | PNG/JPEG/WebP with EXIF normalization | Implemented; JPEG/WebP import variants not separately live-certified |
 | check_layout | Center/Y-up containment and overlap | Offline geometry and historical live board readback; no client screenshot equivalence |
 
-Tool names above omit the common `vizcom_` prefix. Related entry points share implementations: **21 tools are not 21 independently proven workflows.**
+Tool names above omit the common `vizcom_` prefix. Related entry points share implementations: **Tool count is not the count of independently proven workflows.**
 
 ## Known gaps, ordered by impact
 
@@ -27,7 +29,7 @@ Tool names above omit the common `vizcom_` prefix. Related entry points share im
 3. **Collaboration:** stale checks happen before a separate write, not atomically. No subscriptions, collaborative lock, general undo, arbitrary node deletion/rename/reconnection or conflict merge. Layout recovery is limited to recorded positions/sizes and the original local journal.
 4. **Generation controls:** public batch defaults to one output and 2k. Exposed resolution tiers are 1k/2k/4k/source. There is no separate aspect-ratio/Original selector, model catalog, seed, per-reference weight, cost estimator, or quality benchmark. Studio style strings are interface values, not proof of underlying model identity.
 5. **Image QA:** only first available Studio output is published/downloaded. Mask restoration resizes generated pixels to source dimensions and uses a hard threshold; boundaries and geometry can still look wrong. No feathering, native layer preservation or visual acceptance automation.
-6. **Discovery and exports:** recent-board list is capped at 20. No full workspace search/pagination, folder CRUD, arbitrary Studio-layer operations, high-resolution export contract, video, 3D or model training.
+6. **Discovery and exports:** recent-board list is capped at 20. No full workspace search/pagination, folder CRUD, arbitrary Studio-layer operations, high-resolution export contract, 3D or model training.
 7. **Public maintenance:** persisted operation hashes can drift; no automatic schema compatibility check or compatibility CI. MCP mutation annotations need per-tool review; current shared registration reports destructiveHint=false for every tool, including edits. No production support/SLA is offered.
 
 ## What the evidence does not say

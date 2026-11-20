@@ -18,6 +18,8 @@ Operate in the background. Do not activate windows, move the mouse, or fall back
 
 ## Choose a workflow
 
+For Animate video: discover `vizcom_read_animate`, `vizcom_create_animate`, `vizcom_connect_animate`, `vizcom_generate_animate` and `vizcom_download_video`. Follow [video operations](references/video.md). Do not infer video support from image tools or the offline prototype.
+
 Read [operations and limits](references/operations.md) for parameter semantics, recovery and geometry before the corresponding workflow.
 
 | Task | Path |

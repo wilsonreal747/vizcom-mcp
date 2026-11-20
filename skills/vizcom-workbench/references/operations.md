@@ -33,4 +33,4 @@ Before edits, record the intended scope and positions; after edits, read back an
 
 Never automatically repeat a generation POST after timeout. A board-generation receipt can identify precreated outputs; inspect those IDs. A Studio failure may expose only drawingId; no public tool maps that reliably back to a lost promptId. If unresolved, stop dependent calls and state that completion/credit use is unknown. Do not invent a history API.
 
-No complete folder search, automatic token renewal, full native layers, 3D, video, model training, per-reference weights, seed or aspect-ratio selector is exposed. See the repository capability matrix for historical live evidence versus offline tests. Skill instruction tests do not certify service availability or another machine.
+No complete folder search, automatic token renewal, full native layers, 3D, model training, per-reference weights, seed or aspect-ratio selector is exposed. See the repository capability matrix for historical live evidence versus offline tests. Skill instruction tests do not certify service availability or another machine. Video is separately covered in [video operations](video.md).

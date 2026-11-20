@@ -9,6 +9,7 @@ import {fileURLToPath} from 'node:url';
 import {VizcomClient} from './client.mjs';
 import {existingSession} from './session.mjs';
 import {BoardClient,summarize} from './board.mjs';
+import {AnimateClient,inspect} from './animate.mjs';
 import {publishResult} from './publish.mjs';
 import {contains,overlaps} from './geometry.mjs';
 const root=fileURLToPath(new URL('../',import.meta.url));
@@ -91,4 +92,10 @@ register('vizcom_check_layout','Check actual center-based/Y-up bounds: nodes out
  const pairs=items=>items.flatMap((n,i)=>items.slice(i+1).filter(m=>overlaps(n,m)).map(m=>[n.id,m.id]));
  return {coordinateSystem:'center x/y, positive Y up',sectionCount:sections.length,nodeCount:nodes.length,outsideSections:nodes.filter(n=>!sections.some(s=>contains(s,n,a.padding))).map(n=>({id:n.id,name:n.name})),overlappingNodes:pairs(nodes),overlappingSections:pairs(sections)};
 },true);
+const animate=new AnimateClient(boardClient);
+register('vizcom_read_animate','Read native Animate nodes, ordered sources, video metadata and placeholders.',{workbenchId:id},async a=>inspect(await boardClient.board(a.workbenchId)),true);
+register('vizcom_create_animate','Create one native Animate node. Does not generate.',{workbenchId:id,prompt:z.string().min(1),workflow:z.enum(['custom']).default('custom'),duration:z.coerce.number().refine(n=>n===5||n===10).default(5),x:z.number(),y:z.number()},a=>animate.create(a));
+register('vizcom_connect_animate','Connect existing board images/videos to Animate with stale-edit check.',{workbenchId:id,nodeId:id,expectedUpdatedAt:z.string(),sources:z.array(z.object({drawingId:id.optional(),videoId:id.optional(),label:z.enum(['start','end']).optional()})).min(1).max(4)},a=>animate.connect(a));
+register('vizcom_generate_animate','Submit ONE paid video job. Never retries. Saves output ID before request. Resume read_animate after timeout.',{workbenchId:id,nodeId:id,expectedUpdatedAt:z.string(),x:z.number(),y:z.number()},a=>animate.generate(a));
+register('vizcom_download_video','Download completed board video as MP4; validates host, MIME and signature.',{workbenchId:id,videoId:id},a=>animate.download(a),true);
 await server.connect(new StdioServerTransport());

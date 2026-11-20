@@ -10,6 +10,8 @@ Built by [Wilson](https://github.com/wilsonreal747) from a designer's everyday w
 
 ## What you can do
 
+**Video update (2026-11-20):** native Animate creation, image/video connections, one-shot generation and MP4 download are now live-tested through MCP. Current source exposes 26 tools. See [Animate instructions and exact limits](docs/ANIMATE.md); restart the MCP host after upgrading. Historical v0.1.0 predates this update.
+
 | Workflow | Outcome |
 | --- | --- |
 | Sketch to image | Upload a sketch, submit a render, poll the same job and download the result |
